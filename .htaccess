@@ -1,0 +1,17 @@
+RewriteEngine on
+
+# remove traling slash
+RewriteRule ^(.*)/$ /new-lobo-fish/$1 [L,R=301]
+
+redirectMatch 301 ^/new-lobo-fish/console$ /new-lobo-fish/console/login.php
+
+# remove file extension
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
+Redirect 301 /new-lobo-fish/index /new-lobo-fish/
+
+# use routes.php file to make content if filename doesn't exist
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule . routes.php [L]
