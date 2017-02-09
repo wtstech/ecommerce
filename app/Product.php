@@ -8,7 +8,7 @@ use App\ProductImage;
 class Product extends ObjectModel{
 
     protected $table = 'products';
-    protected $fillable = ['title', 'seo_url', 'category_id', 'price', 'special_offer_price', 'description', 'attributes'];
+    protected $fillable = ['title', 'seo_url', 'category_id', 'sub_category_id', 'price', 'special_offer_price', 'description', 'attributes'];
     protected $rules = [
 					'title' => 'required',
 					'seo_url' => 'required|unique:products',
@@ -50,6 +50,14 @@ class Product extends ObjectModel{
 
 	return $this->execute("SELECT * FROM products WHERE 
 					category_id = ? AND products.deleted_at IS NULL ", [$categoryId] );		
+
+    }
+    
+    public function getAllBySubCategory($sub_categoryId)
+    {
+
+	return $this->execute("SELECT * FROM products WHERE 
+					sub_category_id = ? AND products.deleted_at IS NULL ", [$sub_categoryId] );		
 
     }
     

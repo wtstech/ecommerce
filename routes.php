@@ -19,6 +19,7 @@ if( strstr($url, 'blog/') ){
 } else{
 
 	$row = $categoryObj->getRowByField('seo_url', $slug);
+	$row2 = $subcategoryObj->getRowByField('seo_url', $slug);
 
 	if( isset($row->id) ){
 
@@ -26,6 +27,12 @@ if( strstr($url, 'blog/') ){
 		$category_title = $row->title;
 		include('product-list.php');
 
+	} elseif( isset($row2->id) ){
+	
+		$sub_category_id = $row2->id;
+		$sub_category_title = $row2->title;
+		include('product-list.php');
+	
 	} else {
 	
 		include('404.php');

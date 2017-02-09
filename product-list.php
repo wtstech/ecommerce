@@ -6,6 +6,16 @@ use App\ProductImage;
 $productObj = new Product;
 $productImageObj = new ProductImage;
 
+if( isset($sub_category_id) ){
+
+	$query = $productObj->getAllBySubCategory($sub_category_id);
+
+} else {
+
+	$query = $productObj->getAllByCategory($category_id);
+	
+}
+
 require 'header.php';
 
 ?>
@@ -22,7 +32,7 @@ $(function() {
 		
 			<div class="heading-flag-smaller"><img alt="Left Flag" class="img-responsive" src="<?= DOMAIN ?>/images/heading-flag-left.png"> </div>
 			
-				<div class="heading-text-smaller"><h1> <div class="thin-line-top"></div> <?= strtoupper($category_title) ?> </h1> <div class="thin-line-bottom"></div> </div>
+				<div class="heading-text-smaller"><h1> <div class="thin-line-top"></div> <?= isset($sub_category_title) ? strtoupper($sub_category_title) : strtoupper($category_title) ?> </h1> <div class="thin-line-bottom"></div> </div>
 			
 			<div class="heading-flag-smaller"><img alt="Right Flag" class="img-responsive" src="<?= DOMAIN ?>/images/heading-flag-right.png"> </div>
 		
@@ -33,7 +43,7 @@ $(function() {
 	
 	<?php
 	
-	foreach( $productObj->getAllByCategory($category_id) as $product ){
+	foreach( $query as $product ){
 	
 	$row = $productImageObj->getRowByField('product_id', $product->id);
 	

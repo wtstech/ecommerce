@@ -92,14 +92,46 @@
 
             <li class="dropdown link">
               <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">PRODUCTS</a>
-              <ul class="dropdown-menu">
-	      <?php foreach( $categoryObj->getAll() as $category ){ ?>
+
+		<ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+		
+	      <?php
 	      
-	      <li><a href="<?= DOMAIN ?>/<?= strtolower($category->seo_url) ?>"><?= strtoupper($category->title) ?></a></li>
-	      
+	      foreach( $categoryObj->getAll() as $category ){
+	     
+		if( count($subcategoryObj->getAllByCategoryId($category->id)) ){
+		
+		?>
+		
+              <li class="dropdown-submenu">
+                <a href="<?= DOMAIN ?>/<?= strtolower($category->seo_url) ?>">GROCERIES</a>
+                <ul class="dropdown-menu hidden-xs">
+		
+		<?php foreach( $subcategoryObj->getAllByCategoryId($category->id) as $sub_category ){ ?>
+		
+			<li><a href="<?= DOMAIN ?>/<?= strtolower($category->seo_url) ?>/<?= strtolower($sub_category->seo_url) ?>"><?= strtoupper($sub_category->title) ?></a></li>
+		  
+		<?php } ?>
+		  
+                </ul>
+              </li>
+		
+		<?php
+
+		} else {
+		
+		?>
+		
+			<li><a href="<?= DOMAIN ?>/<?= strtolower($category->seo_url) ?>"><?= strtoupper($category->title) ?></a></li>
+		
+		<?php } ?>
+
+	
 	     <?php } ?>
 
-              </ul>
+
+	      
+            </ul>
             </li>
 
 	<li class="link"><a href="<?= DOMAIN ?>/services">SERVICES</a></li>

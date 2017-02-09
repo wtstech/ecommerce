@@ -1,5 +1,9 @@
 <?php
 
+use App\SubCategory;
+
+$subCategoryObj = new SubCategory;
+
 if(isset($action)){
 
 	$subCategoryObj->delete($id);
@@ -22,13 +26,13 @@ if( count($subCategoryObj->getAll()) ){
 
 	<table class="table table-striped table-hover">
 
-	<tr><td><strong>Sub Category</strong></td><td><strong>Category</strong></td><td><strong>Order</strong></td><td><strong>Action</strong></td></tr>
+	<tr><td><strong>Sub Category</strong></td><td><strong>SEO Friendly URL</strong></td><td><strong>Category</strong></td><td><strong>Action</strong></td></tr>
 	
 	<?php
 	
 	foreach( $subCategoryObj->getAll() as $row ){
 	
-	print '<tr><td>'.$row->sub_category_title.'</td><td>'.$row->title.'</td><td>'.$row->order.'</td><td><a class="btn btn-primary" href="account.php?page=sub-category&action=edit&id='.$row->sub_category_id.'">Edit <i class="fa fa-edit"></i></a> <a class="btn btn-primary" href="account.php?page=sub-categories&action=delete&id='.$row->sub_category_id.'">Delete <i class="fa fa-remove"></i></a></td></tr>';
+	print '<tr><td>'.$row->sub_category_title.'</td><td>/'.$row->seo_url.'/'.$row->sub_category_seo_url.'</td><td>'.$row->title.'</td><td><a class="btn btn-primary" href="account.php?page=sub-category&action=edit&id='.$row->sub_category_id.'">Edit <i class="fa fa-edit"></i></a> <a class="btn btn-primary" href="account.php?page=sub-categories&action=delete&id='.$row->sub_category_id.'">Delete <i class="fa fa-remove"></i></a></td></tr>';
 	
 	}
 	

@@ -2,10 +2,12 @@
 
 use App\Product;
 use App\Category;
+use App\SubCategory;
 use App\ProductImage;
 
 $productObj = new Product;
 $categoryObj = new Category;
+$subcategoryObj = new SubCategory;
 $productimageObj = new ProductImage;
 
 
@@ -108,8 +110,6 @@ tinymce.init({
 										<p>This should have a dash in between each word, no spaces</p>
 									</div>
 								</div>
-								
-								
 
 								<div class="form-group">
 									<label class="col-md-4 control-label">Category</label>
@@ -135,6 +135,34 @@ tinymce.init({
 										
 										?>
 										
+										</select>
+										
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label">Sub Category</label>
+									<div class="col-md-6">
+										
+										<select class="form-control" name="sub_category_id" id="sub_category_id">
+										<option value="">Select Sub Category</option>
+										<?php
+										
+										foreach($subcategoryObj->getAll() as $sub_category){
+										
+										$selected = '';
+										
+											if( isset($row) ){
+										
+												$selected = $sub_category->sub_category_id == $row->sub_category_id ? 'selected' : '';
+											
+											}
+										
+										print "<option value='".$sub_category->sub_category_id."' $selected>".$sub_category->sub_category_title."</option>\n";
+										
+										}
+										
+										?>
 										</select>
 										
 									</div>

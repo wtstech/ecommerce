@@ -6,15 +6,23 @@ class SubCategory extends ObjectModel
 {
 
     protected $table = 'sub_categories';
-    protected $fillable = ['title', 'meta_title', 'meta_keywords', 'meta_description', 'category_id', 'order', 'seo_text'];
-    protected $rules = ['title' => 'required', 'meta_title' => 'required', 'meta_description' => 'required', 'category_id' => 'required'];
+    protected $fillable = ['title', 'seo_url', 'category_id'];
+    protected $rules = ['title' => 'required', 'seo_url' => 'required', 'category_id' => 'required'];
 
     public function getAll()
     {
 
-	return $this->execute('SELECT *, sub_categories.title AS sub_category_title, sub_categories.id AS sub_category_id  
+	return $this->execute('SELECT *, sub_categories.title AS sub_category_title, sub_categories.seo_url AS sub_category_seo_url, sub_categories.id AS sub_category_id  
 					FROM sub_categories LEFT JOIN categories ON categories.id = sub_categories.category_id 
-					WHERE sub_categories.deleted_at IS NULL ORDER BY sub_categories.order ASC ', []);
+					WHERE sub_categories.deleted_at IS NULL ', []);
+	
+    }
+    
+    
+    public function getAllByCategoryId($category_id)
+    {
+
+	return $this->execute('SELECT * FROM sub_categories WHERE sub_categories.category_id = ? AND sub_categories.deleted_at IS NULL ', [ $category_id ]);
 	
     }
 

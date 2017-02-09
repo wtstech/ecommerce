@@ -56,6 +56,7 @@ $(function(){
 								<ul class="dropdown-menu">
 									<li><a href="<?= DOMAIN;  ?>/console/account.php?page=home">My Account</a></li>
 									<li><a href="<?= DOMAIN;  ?>/console/account.php?page=categories">Categories</a></li>
+									<li><a href="<?= DOMAIN;  ?>/console/account.php?page=sub-categories">Sub Categories</a></li>
 									<li><a href="<?= DOMAIN;  ?>/console/account.php?page=products">Products</a></li>
 									<li><a href="<?= DOMAIN;  ?>/console/account.php?page=orders&status=New">Enquiries</a></li>
 									<li><a href="<?= DOMAIN;  ?>/console/account.php?page=change-password">Change Password</a></li>
