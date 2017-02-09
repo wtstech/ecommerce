@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 08, 2017 at 12:10 PM
+-- Generation Time: Feb 09, 2017 at 11:52 AM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -77,7 +77,14 @@ CREATE TABLE `cart` (
 
 INSERT INTO `cart` (`id`, `product_id`, `quantity`, `cart_price`, `unique_id`, `discount`, `options`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 1, 1, '10.00', '::1-1486040671', '1.00', NULL, '2017-02-06 09:43:37', '2017-02-06 09:43:48', '2017-02-06 09:43:48'),
-(2, 1, 1, '7.60', '::1-1486040671', '1.00', NULL, '2017-02-06 09:44:30', '2017-02-06 09:44:30', NULL);
+(2, 1, 1, '7.60', '::1-1486040671', '1.00', NULL, '2017-02-06 09:44:30', '2017-02-08 11:40:40', '2017-02-08 11:40:40'),
+(3, 1, 1, '7.60', '::1-1486555219', '1.00', NULL, '2017-02-08 12:01:54', '2017-02-08 12:01:54', NULL),
+(4, 1, 1, '7.60', '::1-1486556007', '1.00', NULL, '2017-02-08 12:19:28', '2017-02-08 12:19:28', NULL),
+(5, 1, 1, '7.60', '::1-1486556007', '1.00', NULL, '2017-02-08 12:19:29', '2017-02-08 12:19:29', NULL),
+(6, 1, 1, '7.60', '::1-1486556381', '1.00', NULL, '2017-02-08 12:19:47', '2017-02-08 12:19:47', NULL),
+(7, 1, 1, '7.60', '::1-1486556408', '1.00', NULL, '2017-02-08 12:26:37', '2017-02-08 12:26:37', NULL),
+(8, 1, 1, '7.60', '::1-1486557038', '1.00', NULL, '2017-02-08 12:31:02', '2017-02-08 12:35:42', '2017-02-08 12:35:42'),
+(9, 1, 1, '7.60', '::1-1486557038', '1.00', NULL, '2017-02-08 12:35:49', '2017-02-08 12:35:51', '2017-02-08 12:35:51');
 
 -- --------------------------------------------------------
 
@@ -138,6 +145,14 @@ CREATE TABLE `orders` (
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `user_id`, `status`, `shipping`, `cost`, `order_number`, `is_dispatched`, `promo_code_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 13, 'New', '0.00', '7.60', '100001', NULL, NULL, '2017-02-08 12:13:27', '2017-02-08 12:13:27', NULL),
+(2, 14, 'New', '0.00', '7.60', '100002', NULL, NULL, '2017-02-08 12:20:08', '2017-02-08 12:20:08', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -147,6 +162,7 @@ CREATE TABLE `orders` (
 CREATE TABLE `products` (
   `id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
+  `sub_category_id` int(11) DEFAULT NULL,
   `title` varchar(255) NOT NULL,
   `seo_url` varchar(100) NOT NULL,
   `price` decimal(10,2) NOT NULL,
@@ -162,8 +178,8 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `category_id`, `title`, `seo_url`, `price`, `special_offer_price`, `description`, `attributes`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 'First Product', 'first-product', '10.00', '7.60', '<p>text</p>', NULL, '2017-02-02 12:51:23', '2017-02-06 09:38:36', NULL);
+INSERT INTO `products` (`id`, `category_id`, `sub_category_id`, `title`, `seo_url`, `price`, `special_offer_price`, `description`, `attributes`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 3, 3, 'First Product', 'first-product', '10.00', '7.60', '<p>text</p>', NULL, '2017-02-02 12:51:23', '2017-02-09 10:11:34', NULL);
 
 -- --------------------------------------------------------
 
@@ -184,6 +200,14 @@ CREATE TABLE `products_from_order` (
   `updated_at` datetime NOT NULL,
   `deleted_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `products_from_order`
+--
+
+INSERT INTO `products_from_order` (`id`, `order_id`, `product_id`, `quantity`, `price`, `title`, `discount`, `options`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 1, 1, 1, '7.60', 'First Product', '1.00', NULL, '2017-02-08 12:13:27', '2017-02-08 12:13:27', NULL),
+(2, 2, 1, 1, '7.60', 'First Product', '1.00', NULL, '2017-02-08 12:20:08', '2017-02-08 12:20:08', NULL);
 
 -- --------------------------------------------------------
 
@@ -206,8 +230,33 @@ CREATE TABLE `product_images` (
 --
 
 INSERT INTO `product_images` (`id`, `product_id`, `alt`, `ext`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 'FISH1', 'jpg', '2017-02-02 12:51:23', '2017-02-06 09:38:36', NULL),
-(2, 1, 'FISH2', 'jpg', '2017-02-02 12:51:23', '2017-02-06 09:38:36', NULL);
+(1, 1, 'FISH1', 'jpg', '2017-02-02 12:51:23', '2017-02-09 10:11:34', NULL),
+(2, 1, 'FISH2', 'jpg', '2017-02-02 12:51:23', '2017-02-09 10:11:34', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sub_categories`
+--
+
+CREATE TABLE `sub_categories` (
+  `id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `seo_url` varchar(50) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `deleted_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `sub_categories`
+--
+
+INSERT INTO `sub_categories` (`id`, `category_id`, `title`, `seo_url`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(2, 3, 'Beans', 'beans', '2017-02-08 16:54:34', '2017-02-08 16:54:34', NULL),
+(3, 3, 'Oil', 'oil', '2017-02-08 17:05:03', '2017-02-08 17:05:03', NULL),
+(4, 3, 'Fresh & Frozen Vegetable', 'frozen-veg', '2017-02-09 10:27:14', '2017-02-09 10:27:14', NULL);
 
 -- --------------------------------------------------------
 
@@ -239,7 +288,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `user_role_id`, `email`, `password`, `phone`, `address_1`, `address_2`, `town`, `country`, `postcode`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(3, 'Admin', 'User', 2, 'admin', 'd8baf10c4070bb6e642ed37ef07d96df6fc36f34090cc5f018ba1ec31401d24e', '', '', '', '', '', '', '', '2016-02-22 00:00:00', '2016-11-15 12:51:01', NULL);
+(3, 'Admin', 'User', 2, 'admin', 'd8baf10c4070bb6e642ed37ef07d96df6fc36f34090cc5f018ba1ec31401d24e', '', '', '', '', '', '', '', '2016-02-22 00:00:00', '2016-11-15 12:51:01', NULL),
+(14, 'px', 'p', 1, 'alexe@wts-group.com', 'd8baf10c4070bb6e642ed37ef07d96df6fc36f34090cc5f018ba1ec31401d24e', NULL, 'p', NULL, 'p', NULL, ' P', NULL, '2017-02-08 12:20:08', '2017-02-08 12:35:32', NULL);
 
 -- --------------------------------------------------------
 
@@ -320,6 +370,13 @@ ALTER TABLE `product_images`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `sub_categories`
+--
+ALTER TABLE `sub_categories`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `seo_url` (`seo_url`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -349,7 +406,7 @@ ALTER TABLE `blog_images`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `categories`
 --
@@ -364,7 +421,7 @@ ALTER TABLE `gallery_images`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `products`
 --
@@ -374,17 +431,22 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `products_from_order`
 --
 ALTER TABLE `products_from_order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `product_images`
 --
 ALTER TABLE `product_images`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
+-- AUTO_INCREMENT for table `sub_categories`
+--
+ALTER TABLE `sub_categories`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `user_roles`
 --

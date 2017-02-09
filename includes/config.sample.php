@@ -24,6 +24,7 @@ define('FILE', basename($_SERVER['SCRIPT_NAME']));
 $user = new App\User;
 $cartObj = new App\Cart;
 $categoryObj = new App\Category;
+$subcategoryObj = new App\SubCategory;
 
 
 if( !$user->uniqueId() ){
